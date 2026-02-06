@@ -3,13 +3,19 @@
 /**
  * Front Controller
  * Point d'entrée unique de l'application API
- * Séance 1 - Architecture Web 2026
+ * Séance 2 - Architecture Web 2026
  */
 
 // Chargement de l'autoloader Composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Router;
+use App\Core\Env;
+use App\Controller\HomeController;
+use App\Controller\EmployeeController;
+
+// Charger les variables d'environnement
+Env::load();
 
 // Configuration des headers HTTP pour JSON
 header('Content-Type: application/json; charset=utf-8');
@@ -27,13 +33,20 @@ try {
     // Instanciation du router
     $router = new Router();
     
-    // Traitement de la requête
-    $response = $router->handleRequest();
+    // Définition des routes
     
-    // Envoi de la réponse JSON
-    echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    // Route de test / bienvenue
+    $router->get('/', [HomeController::class, 'index']);
+    
+    // Routes employees
+    $router->get('/employees', [EmployeeController::class, 'list']);
+    $router->get('/employees/{id}', [EmployeeController::class, 'show']);
+    
+    // Traitement de la requête
+    $router->handleRequest();
+    
 } catch (Exception $e) {
-    // Gestion des erreurs
+    // Gestion des erreurs globales
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
