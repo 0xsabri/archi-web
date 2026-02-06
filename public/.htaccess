@@ -1,0 +1,10 @@
+RewriteEngine On
+Options -Indexes
+
+# Bloque fichiers cachés
+RewriteRule (^|/)\. - [F,L]
+
+# Front controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]

@@ -1,0 +1,19 @@
+{
+    "name": "archiweb/webapi",
+    "description": "API REST AdventureWorks - Séance 1",
+    "type": "project",
+    "require": {
+        "php": ">=8.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sabri Aydi",
+            "email": "sabri.aydi@example.com"
+        }
+    ]
+}
